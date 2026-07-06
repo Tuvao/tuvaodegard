@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projects } from "../data/projects";
+---
+
+<BaseLayout title="Tuva Ødegård — UX Designer & Frontend Developer">
+  <section class="intro">
+    <h1>Prosjekter</h1>
+    <p>UX Design og frontend-utvikling</p>
+  </section>
+
+  <ul class="project-list">
+    {
+      projects.map((project) => (
+        <li>
+          <ProjectCard project={project} />
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
+
+<style>
+  .intro {
+    margin-bottom: 2.5rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+
+  .intro p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .project-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+</style>

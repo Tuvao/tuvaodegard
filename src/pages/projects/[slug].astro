@@ -1,0 +1,137 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { projects } from "../../data/projects";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<BaseLayout title={`${project.title} — Tuva Ødegård`}>
+  <article>
+    <header class="project-header">
+      <div class="meta">
+        <span class="year">{project.year}</span>
+        {project.caseStudy && <span class="badge">Case study</span>}
+      </div>
+      <h1>{project.title}</h1>
+      <p class="lead">{project.description}</p>
+      <ul class="tags">
+        {project.tags.map((tag) => <li>{tag}</li>)}
+      </ul>
+      <div class="links">
+        {
+          project.liveUrl && (
+            <a href={project.liveUrl} target="_blank" rel="noopener">
+              Se live ↗
+            </a>
+          )
+        }
+        {
+          project.githubUrl && (
+            <a href={project.githubUrl} target="_blank" rel="noopener">
+              GitHub ↗
+            </a>
+          )
+        }
+      </div>
+    </header>
+
+    <div class="content">
+      <p class="placeholder">Innhold kommer.</p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  article {
+    max-width: 680px;
+  }
+
+  .project-header {
+    margin-bottom: 4rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .year {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .lead {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+
+  .tags li {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: #ede9e2;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .links a {
+    font-size: 0.85rem;
+    color: var(--accent);
+  }
+
+  .links a:hover {
+    text-decoration: underline;
+  }
+
+  .content {
+    line-height: 1.8;
+  }
+
+  .placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+</style>
