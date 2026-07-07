@@ -12,7 +12,7 @@ export function getStaticPaths() {
 const { project } = Astro.props;
 ---
 
-<BaseLayout title={`${project.title} — Tuva Ødegård`}>
+<BaseLayout title={`${project.title} — Tuva Ødegård`} lang="en">
   <article>
     <header class="project-header">
       <div class="meta">
@@ -279,7 +279,7 @@ const { project } = Astro.props;
   }
 
   .tags li {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
     background: #ede9e2;
     padding: 0.2rem 0.6rem;
@@ -294,6 +294,8 @@ const { project } = Astro.props;
   .links a {
     font-size: 0.85rem;
     color: var(--accent);
+    padding: 0.5rem 0;
+    display: inline-block;
   }
 
   .links a:hover {
