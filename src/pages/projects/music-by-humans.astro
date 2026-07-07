@@ -1,0 +1,305 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Music by Humans — Tuva Ødegård" lang="en">
+  <article>
+    <header class="project-header">
+      <div class="meta">
+        <span class="year">2026</span>
+        <span class="badge">Case study</span>
+      </div>
+      <h1>Music by Humans</h1>
+      <p class="lead">An app to filter out AI-generated musicians from your Spotify playlists.</p>
+      <ul class="tags">
+        <li>UX Design</li>
+        <li>User Testing</li>
+        <li>Frontend</li>
+        <li>Side project</li>
+      </ul>
+    </header>
+
+    <div class="content">
+      <section>
+        <h2>Background</h2>
+        <p>
+          A friend and I noticed that Spotify was filling up with AI-generated
+          artists, and there was no way to tell. You could discover a new artist
+          you found interesting, start following them, and then find out they
+          didn't exist in the real world. Spotify doesn't label AI artists, so
+          users have no visible way to distinguish human-made artists from
+          algorithmically generated profiles.
+        </p>
+        <p>
+          The issue isn't just aesthetic. It's about trust, and about money.
+          Making it as an artist is hard enough already. When someone streams an
+          AI track, the royalties go to the bot operator, not a real musician.
+          We wanted to make sure real musicians weren't being drowned out by
+          content with no human behind it. The goal wasn't necessarily to block
+          all AI content, but to create awareness: <em>this is what you're listening to.</em>
+        </p>
+      </section>
+
+      <section>
+        <h2>Challenges</h2>
+        <p>
+          <strong>Blocking isn't possible.</strong> Spotify's API doesn't allow third-party
+          apps to remove or block artists directly, and that's something the user
+          has to do themselves. This created a fundamental design problem: how do
+          you surface information about AI artists without making people feel protected
+          when they actually aren't? An app that signals "you're safe" without actually
+          doing anything would be worse than nothing.
+        </p>
+        <p>
+          <strong>The API kept shrinking.</strong> Spotify gradually deprecated useful
+          endpoints over the course of the project, which meant features we'd planned
+          or built had to be rethought as the platform pulled the rug out from under
+          us.
+        </p>
+        <p>
+          <strong>Detection is genuinely hard.</strong> There's no reliable way to
+          determine whether an artist is AI-generated, and it kept getting harder.
+          We built a scoring system partly as a design response to this, a way to
+          be honest that we weren't certain, rather than presenting false confidence.
+        </p>
+      </section>
+
+      <section>
+        <h2>First iteration</h2>
+        <p>
+          I started with rough sketches and lists, mapping out what information
+          mattered and how it should be structured. From there I went straight
+          into code, implementing the design directly through claude,
+          experimenting without detailed designs.
+        </p>
+        <p>[TODO: add early sketches]</p>
+        <p>
+          The first version was built around a score, a kind of "AI probability
+          index" per artist. The idea was that a percentage and a colour-coded
+          bar would let users quickly gauge how likely an artist was to be
+          AI-generated.
+        </p>
+        <figure>
+          <img
+            src={`${base}images/mbh/old_spotify_frontpage.png`}
+            alt="Early landing page design with dark Spotify-inspired theme"
+          />
+        </figure>
+        <figure>
+          <img
+            src={`${base}images/mbh/old_spotify_tooltip.png`}
+            alt="Early logged-in view showing AI probability scores and a tooltip explaining how to block artists"
+          />
+        </figure>
+      </section>
+
+      <section>
+        <h2>User testing</h2>
+        <p>
+          I put the design in front of some friends in a casual setting. I gave
+          them a simple scenario: you saw an Instagram ad that said something
+          about listening to AI artists, you tapped it, and now you're here. The
+          question was just: "What do you think this is?" It quickly revealed
+          where the design was failing.
+        </p>
+        <p>
+          Three things kept coming up. First, the scoring confused people.
+          Nobody knew what it meant or which direction was good. Is a high score
+          human or AI? Second, nobody understood that blocking was something
+          they had to do themselves. The app looked like it was in control, when
+          really it was just showing information. Third, the dark
+          Spotify-inspired design made people think they were looking at an
+          official Spotify feature, which made the confusion worse.
+        </p>
+        <p>
+          That last point led to a deliberate visual reset: the new design uses
+          a completely different look to make it immediately clear this is a
+          third-party tool, not something built by Spotify.
+        </p>
+      </section>
+
+      <section>
+        <h2>The solution</h2>
+        <p>
+          The redesign moved away from scores entirely. Instead of a number,
+          each artist gets a clear label: Human, Possibly AI, or AI Artist. The
+          landing page leads with a message for real artists, not a warning
+          about robots, setting the right tone before users even log in.
+        </p>
+        <figure>
+          <img
+            src={`${base}images/mbh/mbh_frontpage.png`}
+            alt="New landing page: Make room for real artists"
+          />
+        </figure>
+        <p>
+          After logging in, the dashboard gives an immediate overview of how
+          many of your recently played artists might be AI-generated, with a
+          prominent "What do I do with this information?" link that explains the
+          blocking process step by step. That addressed the biggest
+          misunderstanding from testing directly.
+        </p>
+        <figure>
+          <img
+            src={`${base}images/mbh/home.png`}
+            alt="Dashboard showing playlists and recently played artists with Human and Possibly AI labels"
+          />
+        </figure>
+        <figure>
+          <img
+            src={`${base}images/mbh/home_what.png`}
+            alt="Expanded 'What do I do with this information?' section explaining how to block artists on Spotify"
+          />
+        </figure>
+        <p>
+          The artists page splits the list into two clear groups, and each entry
+          can be expanded to show more context, including whether the system is
+          uncertain.
+        </p>
+        <figure>
+          <img
+            src={`${base}images/mbh/artists.png`}
+            alt="Artists page split into Possibly AI-generated and Human artists sections"
+          />
+        </figure>
+        <figure>
+          <img
+            src={`${base}images/mbh/possibly_ai.png`}
+            alt="Expanded artist row for 'Neon Drift' showing Possibly AI label, explanation, and Go block artist button"
+          />
+        </figure>
+      </section>
+
+      <section>
+        <h2>Reflection</h2>
+        <p>
+          The project was eventually shelved. Spotify blocked access in a way
+          that made it impossible to continue. It's a strange feeling to have a
+          platform validate your idea by building their own version of it, which
+          Spotify later did. But it also confirmed that the problem was real.
+        </p>
+        <p>
+          The most interesting design challenge wasn't the visual side, it was
+          figuring out how to communicate uncertainty. When you can't be certain
+          whether an artist is AI-generated, how do you say that without either
+          alarming people or being so vague it's useless? That tension shaped
+          almost every decision.
+        </p>
+        <p>
+          This was also one of my first projects working closely with Claude
+          throughout the process. I wrote very little of the frontend code
+          myself. It was a useful way to explore what that kind of collaboration
+          looks like in practice, where the thinking and direction is mine, but
+          the execution is shared.
+        </p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  article {
+    max-width: 680px;
+  }
+
+  .project-header {
+    margin-bottom: 4rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .year {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .lead {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+  }
+
+  .tags li {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: #ede9e2;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .content {
+    line-height: 1.8;
+  }
+
+  .content section {
+    margin-bottom: 3rem;
+  }
+
+  .content h2 {
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .content p {
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .content em {
+    font-style: italic;
+  }
+
+  .content figure {
+    margin: 1.5rem 0;
+  }
+
+  .content figure img {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    display: block;
+  }
+</style>

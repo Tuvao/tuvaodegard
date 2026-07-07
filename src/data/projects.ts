@@ -20,4 +20,13 @@ export const projects: Project[] = [
     year: 2026,
     caseStudy: true,
   },
+  {
+    slug: "api-access",
+    title: "API Access Management",
+    description:
+      "Redesigning a complex access control interface to make granular API permissions faster and less error-prone.",
+    tags: ["UX Design", "Frontend", "Internal tooling", "Fintech"],
+    year: 2026,
+    caseStudy: true,
+  },
 ];

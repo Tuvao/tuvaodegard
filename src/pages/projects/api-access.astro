@@ -1,0 +1,224 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="API Access Management — Tuva Ødegård" lang="en">
+  <article>
+    <header class="project-header">
+      <div class="meta">
+        <span class="year">2025</span>
+        <span class="badge">Case study</span>
+      </div>
+      <h1>API Access Management</h1>
+      <p class="lead">
+        Redesigning a complex access control interface to make granular API
+        permissions faster and less error-prone.
+      </p>
+      <ul class="tags">
+        <li>UX Design</li>
+        <li>Frontend</li>
+        <li>Internal tooling</li>
+        <li>Fintech</li>
+      </ul>
+    </header>
+
+    <div class="content">
+      <section>
+        <h2>Background</h2>
+        <p>
+          This work is part of an internal tool for managing API access
+          for internal and external clients. It gives an overview of clients and their
+          assigned APIs, a changelog of changes per client, and a few other
+          administrative functions.
+        </p>
+      </section>
+
+      <section>
+        <h2>The problem</h2>
+        <p>
+          One of the features on this tool is the ability to manage which APIs a
+          client has access to. The existing interface for this used a dual-panel
+          "add/remove" pattern. While functional, it had several
+          issues: raw UUIDs were visible to users, the list was unordered and
+          ungrouped, and — critically — granular access control was a separate
+          two-step process. Users had to add an API, save, navigate back to the
+          overview, find the entry they just added, and only then configure
+          which specific endpoints to allow.
+        </p>
+        <figure>
+          <img
+            src={`${import.meta.env.BASE_URL}images/api/api-access-wireframe.png`}
+            alt="Wireframe of the original dual-panel interface for adding and removing API access"
+          />
+        </figure>
+        <p><em>This is an internal project, so actual screenshots are not available. The wireframes shown here are recreated to illustrate the concept — the original Figma designs and final implementation were both done by me.</em></p>
+      </section>
+
+      <section>
+        <h2>Process</h2>
+        <p>
+          I started by talking to the people who used the system regularly to
+          understand where the friction actually was. One thing that came up: removing
+          access was rare. The interface was built around adding and removing as
+          equally common actions, but in practice bulk removal almost never happened.
+          That changed how I thought about the solution. From there I sketched out
+          alternatives in Figma, focusing on collapsing the two-step add flow into one
+          and moving removal out of the main path entirely.
+        </p>
+      </section>
+
+      <section>
+        <h2>The solution</h2>
+        <p>
+          Adding access got a dedicated modal with inline granular controls —
+          no more saving and navigating back to configure endpoints. Removing was
+          moved to a three-dot menu on each individual access card, keeping it
+          accessible without cluttering the primary flow.
+        </p>
+        <figure>
+          <img
+            src={`${import.meta.env.BASE_URL}images/api/popover-wireframe.png`}
+            alt="Wireframe of the new Add access popover with inline granular endpoint selection"
+          />
+        </figure>
+      </section>
+
+      <section>
+        <h2>Outcome</h2>
+        <p>
+          After launch, a product lead who uses the system regularly reached out
+          unprompted with this feedback (translated from Norwegian):
+        </p>
+        <blockquote>
+          "Managing API access for clients has received a real lift and become
+          much easier — and prettier. Both adding and removing access. Really
+          great work."
+        </blockquote>
+        <p>
+          Worth noting: both adding <em>and</em> removing were called out as
+          improved, even though removing was deliberately moved out of the main
+          flow. That felt like a good signal that the restructuring had worked.
+        </p>
+        <p>
+          This was also one of my first projects on this team. Getting up to
+          speed on an unfamiliar system quickly enough to identify a real
+          problem and ship a solution was a useful reminder that being new
+          somewhere doesn't mean waiting before contributing.
+        </p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  article {
+    max-width: 680px;
+  }
+
+  .project-header {
+    margin-bottom: 4rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .year {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .lead {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+  }
+
+  .tags li {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: #ede9e2;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .content {
+    line-height: 1.8;
+  }
+
+  .content section {
+    margin-bottom: 3rem;
+  }
+
+  .content h2 {
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .content p {
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .content em {
+    font-style: italic;
+  }
+
+  .content blockquote {
+    border-left: 2px solid var(--accent);
+    margin: 1.25rem 0;
+    padding: 0.25rem 0 0.25rem 1.25rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .content figure {
+    margin: 1.5rem 0;
+  }
+
+  .content figure img {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    display: block;
+  }
+</style>
