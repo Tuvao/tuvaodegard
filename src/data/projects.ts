@@ -16,8 +16,8 @@ export const projects: Project[] = [
     title: "Music by Humans",
     description:
       "An app to filter out AI-generated musicians from your Spotify playlists.",
-    tags: ["UX Design", "Prototyping", "Figma"],
-    year: 2024,
+    tags: ["UX Design", "User Testing", "Frontend", "Side project"],
+    year: 2026,
     caseStudy: true,
   },
 ];
