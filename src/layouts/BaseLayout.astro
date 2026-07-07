@@ -20,7 +20,7 @@ const { title } = Astro.props;
   </head>
   <body>
     <header>
-      <a href="/" class="wordmark">Tuva Ødegård</a>
+      <a href={import.meta.env.BASE_URL} class="wordmark">Tuva Ødegård</a>
     </header>
     <main>
       <slot />
