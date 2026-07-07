@@ -18,6 +18,7 @@ const { project } = Astro.props;
     <ul class="tags">
       {project.tags.map((tag) => <li>{tag}</li>)}
     </ul>
+    <span class="cta">Se prosjekt <span class="arrow" aria-hidden="true">→</span></span>
   </div>
 </a>
 
@@ -95,5 +96,25 @@ const { project } = Astro.props;
     background: #ede9e2;
     padding: 0.2rem 0.6rem;
     border-radius: 2px;
+  }
+
+  .cta {
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-top: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .arrow {
+      display: inline-block;
+      transition: transform 0.15s ease;
+    }
+    .card:hover .arrow {
+      transform: translateX(4px);
+    }
   }
 </style>
