@@ -47,14 +47,14 @@ const { project } = Astro.props;
         <h2>Background</h2>
         <p>
           A friend and I noticed that Spotify was filling up with AI-generated
-          artists — and there was no way to tell. You could discover a new
-          artist you found interesting, start following them, and then find out
-          they didn't exist in the real world. Spotify doesn't label AI artists,
-          so users have no visible way to distinguish human-made artists from
+          artists, and there was no way to tell. You could discover a new artist
+          you found interesting, start following them, and then find out they
+          didn't exist in the real world. Spotify doesn't label AI artists, so
+          users have no visible way to distinguish human-made artists from
           algorithmically generated profiles.
         </p>
         <p>
-          The issue isn't just aesthetic — it's about trust, and about money.
+          The issue isn't just aesthetic. It's about trust, and about money.
           Making it as an artist is hard enough already. When someone streams an
           AI track, the royalties go to the bot operator, not a real musician.
           We wanted to make sure real musicians weren't being drowned out by
@@ -69,9 +69,9 @@ const { project } = Astro.props;
         <h2>Challenges</h2>
         <p>
           <strong>Blocking isn't possible.</strong> Spotify's API doesn't allow third-party
-          apps to remove or block artists directly — that's something the user has
-          to do themselves. This created a fundamental design problem: how do you
-          surface information about AI artists without making people feel protected
+          apps to remove or block artists directly, and that's something the user
+          has to do themselves. This created a fundamental design problem: how do
+          you surface information about AI artists without making people feel protected
           when they actually aren't? An app that signals "you're safe" without actually
           doing anything would be worse than nothing.
         </p>
@@ -84,7 +84,7 @@ const { project } = Astro.props;
         <p>
           <strong>Detection is genuinely hard.</strong> There's no reliable way to
           determine whether an artist is AI-generated, and it kept getting harder.
-          We built a scoring system partly as a design response to this — a way to
+          We built a scoring system partly as a design response to this, a way to
           be honest that we weren't certain, rather than presenting false confidence.
         </p>
       </section>
@@ -92,14 +92,14 @@ const { project } = Astro.props;
       <section>
         <h2>First iteration</h2>
         <p>
-          I started with rough sketches and lists — mapping out what information
+          I started with rough sketches and lists, mapping out what information
           mattered and how it should be structured. From there I went straight
           into code, implementing the design directly through claude,
           experimenting without detailed designs.
         </p>
         <p>[TODO: add early sketches]</p>
         <p>
-          The first version was built around a score — a kind of "AI probability
+          The first version was built around a score, a kind of "AI probability
           index" per artist. The idea was that a percentage and a colour-coded
           bar would let users quickly gauge how likely an artist was to be
           AI-generated.
@@ -128,13 +128,13 @@ const { project } = Astro.props;
           where the design was failing.
         </p>
         <p>
-          Three things kept coming up. First, the scoring was confusing — people
-          didn't know what it meant or which direction was good. Is a high score
+          Three things kept coming up. First, the scoring confused people.
+          Nobody knew what it meant or which direction was good. Is a high score
           human or AI? Second, nobody understood that blocking was something
           they had to do themselves. The app looked like it was in control, when
           really it was just showing information. Third, the dark
           Spotify-inspired design made people think they were looking at an
-          official Spotify feature — which made the confusion worse.
+          official Spotify feature, which made the confusion worse.
         </p>
         <p>
           That last point led to a deliberate visual reset: the new design uses
@@ -149,7 +149,7 @@ const { project } = Astro.props;
           The redesign moved away from scores entirely. Instead of a number,
           each artist gets a clear label: Human, Possibly AI, or AI Artist. The
           landing page leads with a message for real artists, not a warning
-          about robots — setting the right tone before users even log in.
+          about robots, setting the right tone before users even log in.
         </p>
         <figure>
           <img
@@ -158,8 +158,8 @@ const { project } = Astro.props;
           />
         </figure>
         <p>
-          After logging in, the dashboard gives an immediate overview — how many
-          of your recently played artists might be AI-generated — with a
+          After logging in, the dashboard gives an immediate overview of how
+          many of your recently played artists might be AI-generated, with a
           prominent "What do I do with this information?" link that explains the
           blocking process step by step. That addressed the biggest
           misunderstanding from testing directly.
@@ -178,7 +178,7 @@ const { project } = Astro.props;
         </figure>
         <p>
           The artists page splits the list into two clear groups, and each entry
-          can be expanded to show more context — including whether the system is
+          can be expanded to show more context, including whether the system is
           uncertain.
         </p>
         <figure>
@@ -198,13 +198,13 @@ const { project } = Astro.props;
       <section>
         <h2>Reflection</h2>
         <p>
-          The project was eventually shelved — Spotify blocked access in a way
+          The project was eventually shelved. Spotify blocked access in a way
           that made it impossible to continue. It's a strange feeling to have a
           platform validate your idea by building their own version of it, which
           Spotify later did. But it also confirmed that the problem was real.
         </p>
         <p>
-          The most interesting design challenge wasn't the visual side — it was
+          The most interesting design challenge wasn't the visual side, it was
           figuring out how to communicate uncertainty. When you can't be certain
           whether an artist is AI-generated, how do you say that without either
           alarming people or being so vague it's useless? That tension shaped
@@ -214,7 +214,7 @@ const { project } = Astro.props;
           This was also one of my first projects working closely with Claude
           throughout the process. I wrote very little of the frontend code
           myself. It was a useful way to explore what that kind of collaboration
-          looks like in practice — where the thinking and direction is mine, but
+          looks like in practice, where the thinking and direction is mine, but
           the execution is shared.
         </p>
       </section>
