@@ -1,0 +1,228 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Skjera — Tuva Ødegård" lang="en">
+  <article>
+    <header class="project-header">
+      <div class="meta">
+        <span class="year">2025</span>
+        <span class="badge">Case study</span>
+      </div>
+      <h1>Skjera</h1>
+      <p class="lead">
+        An internal platform for sending event invitations — designed from
+        initial sketches to a product that's actively in use.
+      </p>
+      <ul class="tags">
+        <li>UX Design</li>
+        <li>Design-to-dev</li>
+        <li>Design system</li>
+        <li>Internal tooling</li>
+      </ul>
+    </header>
+
+    <div class="content">
+      <section>
+        <h2>Background</h2>
+        <p>
+          Event invitations at work were sent through Outlook, Teams, or Slack.
+          The tools work, but not everyone has access across the organisation,
+          and there was no easy way to get a clear picture of who was actually
+          coming. Skjera was a side project
+          (built during dedicated learning time) to fix exactly that.
+        </p>
+        <p>
+          I joined from the start and took on the design work. At the time I
+          was working on the design system team, so this was also a chance to
+          use our own system in a real product — which turned out to be a
+          useful way to find its rough edges.
+        </p>
+      </section>
+
+      <section>
+        <h2>Process</h2>
+        <p>
+          I started with rough sketches in Figma to establish the core flow:
+          an overview page, an event detail page, and a creation form. The
+          sketches weren't treated as a final handoff — I stayed close to the
+          developers throughout implementation, adjusting designs when we hit
+          technical constraints or found that something worked differently in
+          practice than it looked on the page.
+        </p>
+        <p>
+          Working together from day one meant we agreed quickly on what to
+          prioritise for the first version, and avoided large surprises late
+          in the process.
+        </p>
+      </section>
+
+      <section>
+        <h2>The solution</h2>
+        <p>
+          The overview lets you see all events across the organisation, or
+          filter down to your own. Each event has a dedicated page with
+          description, location, time, and a sign-up button. Once registered,
+          you can see who else is coming.
+        </p>
+        <figure>
+          <img
+            src={`${import.meta.env.BASE_URL}images/skjera/event_list.png`}
+            alt="Overview page showing a list of upcoming events with tags and registration status"
+          />
+          <figcaption>Figma design: Overview with "My events" and "All events" toggle</figcaption>
+        </figure>
+        <figure>
+          <img
+            src={`${import.meta.env.BASE_URL}images/skjera/event_detail_registered.png`}
+            alt="Event detail page after registering, showing attendee count and avatar stack"
+          />
+          <figcaption>Figma design: Event detail after registering — with attendee count and avatar stack</figcaption>
+        </figure>
+        <p>
+          Organisers can create events through a simple form with support for
+          categories and an optional attendee cap. After the event, the
+          attendee list can be exported — handy for attaching to expense
+          reimbursements.
+        </p>
+        <figure>
+          <img
+            src={`${import.meta.env.BASE_URL}images/skjera/new_event_form.png`}
+            alt="Event creation form with fields for title, location, time, description, and categories"
+          />
+          <figcaption>Figma design: Creation form built with design system components</figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h2>Outcome</h2>
+        <p>
+          The platform is actively used and has made organising internal events
+          noticeably easier. Skjera is still a living side project — a user
+          profile with dietary preferences is already built, so people don't
+          have to answer the same question at every event that involves food.
+        </p>
+      </section>
+
+      <section>
+        <h2>Design system takeaways</h2>
+        <p>
+          Using our own design system in a real product surface things that
+          abstract testing doesn't. One of the more interesting observations
+          wasn't technical: when something was off or missing, people tended
+          to just work around it themselves rather than report it. That kind
+          of silent workaround is easy to miss if you're only looking at
+          adoption numbers — it was a useful reminder that friction in a
+          design system doesn't always show up as complaints.
+        </p>
+      </section>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  article {
+    max-width: 680px;
+  }
+
+  .project-header {
+    margin-bottom: 4rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .year {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .lead {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+  }
+
+  .tags li {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: #ede9e2;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .content {
+    line-height: 1.8;
+  }
+
+  .content section {
+    margin-bottom: 3rem;
+  }
+
+  .content h2 {
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .content p {
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .content figure {
+    margin: 1.5rem 0;
+  }
+
+  .content figure img {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    display: block;
+  }
+
+  .content figure figcaption {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+</style>

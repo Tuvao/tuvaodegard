@@ -29,4 +29,13 @@ export const projects: Project[] = [
     year: 2026,
     caseStudy: true,
   },
+  {
+    slug: "skjera",
+    title: "Skjera",
+    description:
+      "An internal platform for event invitations — designed from initial sketches to a product that's actively in use.",
+    tags: ["UX Design", "Design-to-dev", "Design system", "Figma"],
+    year: 2025,
+    caseStudy: true,
+  },
 ];
