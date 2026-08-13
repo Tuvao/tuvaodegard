@@ -1,0 +1,30 @@
+---
+interface Props {
+  size?: string;
+  class?: string;
+}
+const { size = "1em", class: className } = Astro.props;
+---
+
+<svg
+  class:list={["sparkle", className]}
+  style={`--sparkle-size: ${size}`}
+  viewBox="0 0 24 24"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    d="M12 0c.55 6.6 4.85 10.9 12 12-7.15 1.1-11.45 5.4-12 12-.55-6.6-4.85-10.9-12-12 7.15-1.1 11.45-5.4 12-12z"
+    fill="currentColor"
+  />
+</svg>
+
+<style>
+  .sparkle {
+    width: var(--sparkle-size);
+    height: var(--sparkle-size);
+    flex: none;
+    display: inline-block;
+    vertical-align: baseline;
+  }
+</style>
