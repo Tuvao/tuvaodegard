@@ -1,26 +1,35 @@
 ---
+import Sparkle from "../components/Sparkle.astro";
 import type { Project } from "../data/projects";
 
 interface Props {
   project: Project;
+  featured?: boolean;
 }
-const { project } = Astro.props;
+const { project, featured = false } = Astro.props;
 ---
 
-<div class="card">
+<div class:list={["card", { featured }]}>
   <div class="card-inner">
     <div class="card-top">
       <span class="year">{project.year}</span>
-      {project.caseStudy && <span class="badge">Case study</span>}
+      {
+        project.caseStudy && (
+          <span class="badge">
+            <Sparkle size="0.7em" />
+            Case study
+          </span>
+        )
+      }
     </div>
-    <h2 class="title">{project.title}</h2>
+    <h3 class="title">{project.title}</h3>
     <p class="description">{project.description}</p>
     <ul class="tags">
       {project.tags.map((tag) => <li>{tag}</li>)}
     </ul>
     <div class="card-footer">
       <a href={`${import.meta.env.BASE_URL}projects/${project.slug}`} class="btn">
-        View case study <span class="arrow">→</span>
+        Read the case study <span class="arrow" aria-hidden="true">→</span>
       </a>
     </div>
   </div>
@@ -29,15 +38,18 @@ const { project } = Astro.props;
 <style>
   .card {
     position: relative;
-    border: 1px solid var(--border-ui);
-    border-radius: 4px;
+    height: 100%;
+    display: flex;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
     background: var(--card-bg);
   }
 
-
-
+  /* flex: 1 rather than height: 100% — a percentage height here resolves
+     against the grid row and swallows the bottom padding. */
   .card-inner {
-    padding: 1.75rem;
+    flex: 1;
+    padding: 1.75rem 1.75rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -52,30 +64,48 @@ const { project } = Astro.props;
   .year {
     font-size: 0.8rem;
     color: var(--text-muted);
-    font-weight: 400;
+    font-weight: 500;
   }
 
   .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
     font-size: 0.7rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 0.15rem 0.5rem;
-    border-radius: 2px;
+    color: var(--coral-ink);
+    background: var(--coral-soft);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+  }
+
+  /* :global() is required — the class lands on the Sparkle component's own
+     root element, which sits outside this component's style scope. */
+  .badge :global(.sparkle) {
+    color: var(--coral);
   }
 
   .title {
-    font-size: 1.15rem;
-    font-weight: 500;
-    color: var(--text);
+    font-size: 1.4rem;
+    line-height: 1.2;
+  }
+
+  .featured .title {
+    font-size: clamp(1.6rem, 4vw, 2rem);
   }
 
   .description {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
-    line-height: 1.6;
+    line-height: 1.65;
+    max-width: 52ch;
+  }
+
+  .featured .description {
+    font-size: 1.05rem;
+    color: var(--text);
   }
 
   .tags {
@@ -89,46 +119,59 @@ const { project } = Astro.props;
   .tags li {
     font-size: 0.8rem;
     color: var(--text-muted);
-    background: #e4e8ef;
-    padding: 0.2rem 0.6rem;
-    border-radius: 2px;
+    background: var(--tag-bg);
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
   }
 
+  /* Push the button to the bottom so cards in a row line up. */
   .card-footer {
-    margin-top: 0.5rem;
+    margin-top: auto;
+    padding-top: 1rem;
   }
 
   .btn {
-    position: relative;
-    z-index: 1;
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 0.85rem;
-    font-weight: 500;
+    gap: 0.45rem;
+    font-size: 0.9rem;
+    font-weight: 600;
     color: #fff;
-    background: linear-gradient(160deg, #6750a0, #4f3d8a);
-    box-shadow: 0 1px 4px rgba(79, 61, 138, 0.2);
-    padding: 0.5rem 1rem;
-    border-radius: 3px;
+    background: var(--coral-ink);
+    padding: 0.6rem 1.1rem;
+    border-radius: 999px;
     text-decoration: none;
   }
 
+  .btn:hover {
+    background: var(--text);
+  }
+
   @media (prefers-reduced-motion: no-preference) {
-    .btn {
-      transition: box-shadow 0.15s ease, background 0.15s ease;
+    .card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease,
+        border-color 0.25s ease;
     }
+    /* A small tilt on hover — playful, but only a degree of it. */
+    .card:hover,
+    .card:focus-within {
+      transform: translateY(-5px) rotate(-0.6deg);
+      border-color: var(--coral);
+      box-shadow: -6px 10px 0 var(--mustard);
+    }
+    .btn,
     .arrow {
-      display: inline-block;
-      transition: transform 0.15s ease;
+      transition: background 0.2s ease, transform 0.2s ease;
     }
-    .btn:hover .arrow {
+    .card:hover .arrow {
       transform: translateX(4px);
     }
   }
 
-  .btn:hover {
-    background: linear-gradient(160deg, #6750a0, #3d2e6e);
-    box-shadow: 0 2px 8px rgba(79, 61, 138, 0.28);
+  @media (prefers-reduced-motion: reduce) {
+    .card:hover,
+    .card:focus-within {
+      border-color: var(--coral);
+    }
   }
 </style>

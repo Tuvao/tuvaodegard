@@ -1,9 +1,12 @@
 ---
+import Sparkle from "../components/Sparkle.astro";
+
 interface Props {
   title: string;
   lang?: string;
 }
-const { title, lang = 'no' } = Astro.props;
+const { title, lang = 'en' } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <!doctype html>
@@ -15,40 +18,74 @@ const { title, lang = 'no' } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..700,0..100,0..1&family=Inter:wght@300..600&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Hopp til hovedinnhold</a>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header>
-      <a href={import.meta.env.BASE_URL} class="wordmark">Tuva Ødegård</a>
+      <a href={base} class="wordmark">
+        <Sparkle size="0.7em" class="wordmark-sparkle" />
+        Tuva Ødegård
+      </a>
+      <nav aria-label="Main">
+        <a href={`${base}#work`}>Work</a>
+        <a
+          href="https://www.linkedin.com/in/tuva-oedegaard/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >LinkedIn<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
+      </nav>
     </header>
     <main id="main-content">
       <slot />
     </main>
     <footer>
-      <span class="footer-name">Tuva Ødegård</span>
-      <span class="footer-meta">UX Designer &amp; Front-end Developer — Based in Oslo</span>
-      <a
-        href="https://www.linkedin.com/in/tuva-oedegaard/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="footer-linkedin"
-      >LinkedIn<span class="sr-only"> (opens in new tab)</span></a>
+      <p class="footer-cta">
+        I'm always up for a conversation about UX, code, or the{" "}
+        <span class="highlight">space in between</span>.
+      </p>
+      <div class="footer-meta">
+        <span class="footer-name">Tuva Ødegård</span>
+        <span>UX Designer &amp; Front-end Developer — Oslo</span>
+        <a
+          href="https://www.linkedin.com/in/tuva-oedegaard/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-linkedin"
+        >Say hi on LinkedIn<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
+      </div>
     </footer>
   </body>
 </html>
 
 <style is:global>
   :root {
-    --bg: #f0f2f5;
-    --text: #1a1e26;
-    --text-muted: #5a6272;
-    --accent: #4f3d8a;
-    --border: #dde1e9;
-    --border-ui: #8d97a8;
-    --card-bg: #f7f8fa;
+    /* Warm sunshine palette. Contrast ratios noted against --bg. */
+    --bg: #fff8f0;
+    --bg-alt: #ffffff;
+    --text: #201a17;          /* 16.3:1 */
+    --text-muted: #6b5d55;    /* 6.0:1  */
+
+    --coral: #e8574b;         /* 3.4:1 — decorative & large text only */
+    --coral-ink: #b8342a;     /* 5.6:1 — safe for body text and buttons */
+    --coral-soft: #fde8e4;
+    --mustard: #f5b93f;       /* highlight surface; use --text on top (9.7:1) */
+    --green: #2e7d6b;         /* 4.7:1 */
+
+    --border: #efe2d4;        /* decorative hairlines */
+    --border-ui: #9c8878;     /* 3.2:1 — interactive component borders */
+    --tag-bg: #f6eadc;
+    --card-bg: var(--bg-alt);
+
+    /* Kept so existing case-study pages inherit the new palette. */
+    --accent: var(--coral-ink);
+
+    --font-display: "Fraunces", Georgia, serif;
+    --font-body: "Inter", system-ui, sans-serif;
+    --radius: 14px;
+    --container: 940px;
   }
 
   *, *::before, *::after {
@@ -60,7 +97,7 @@ const { title, lang = 'no' } = Astro.props;
   html {
     background: var(--bg);
     color: var(--text);
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-body);
     font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -68,15 +105,36 @@ const { title, lang = 'no' } = Astro.props;
 
   body {
     min-height: 100vh;
-    max-width: 800px;
+    max-width: var(--container);
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
   }
 
-  header {
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 4rem;
+  @media (min-width: 40rem) {
+    body {
+      padding: 0 2.5rem;
+    }
+  }
+
+  /* Display type: Fraunces with a touch of softness and wonk, so headings
+     feel warm rather than institutional. */
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-variation-settings: "SOFT" 60, "WONK" 1;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  /* Scoped to the direct child so it never leaks into <header> elements
+     inside articles (e.g. the case-study page headers). */
+  body > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 1.75rem 0;
+    margin-bottom: 3.5rem;
   }
 
   .skip-link {
@@ -95,43 +153,102 @@ const { title, lang = 'no' } = Astro.props;
   }
 
   .wordmark {
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-variation-settings: "SOFT" 60, "WONK" 1;
+    font-size: 1.15rem;
+    font-weight: 600;
     color: var(--text);
     text-decoration: none;
-    padding: 0.5rem 0;
-    display: inline-block;
+    padding: 0.25rem 0;
+  }
+
+  .wordmark-sparkle {
+    color: var(--coral);
   }
 
   .wordmark:hover {
-    color: var(--accent);
+    color: var(--coral-ink);
   }
 
-  footer {
+  body > header nav {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    padding: 2rem 0;
-    margin-top: 4rem;
-    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  body > header nav a {
+    padding: 0.4rem 0;
+    color: var(--text);
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
+
+  body > header nav a:hover {
+    color: var(--coral-ink);
+    text-decoration-color: var(--mustard);
+  }
+
+  /* A mustard highlighter swipe behind a word or phrase. */
+  .highlight {
+    background-image: linear-gradient(
+      180deg,
+      transparent 52%,
+      var(--mustard) 52%,
+      var(--mustard) 93%,
+      transparent 93%
+    );
+    padding: 0 0.1em;
+  }
+
+  footer {
+    margin-top: 6rem;
+    padding: 2.5rem 0 3rem;
+    border-top: 2px dashed var(--border);
+  }
+
+  .footer-cta {
+    font-family: var(--font-display);
+    font-variation-settings: "SOFT" 60, "WONK" 1;
+    font-size: clamp(1.35rem, 3.5vw, 1.9rem);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    max-width: 32ch;
+    margin-bottom: 1.75rem;
+  }
+
+  .footer-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
     font-size: 0.85rem;
     color: var(--text-muted);
     flex-wrap: wrap;
   }
 
   .footer-name {
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text);
   }
 
   .footer-linkedin {
+    color: var(--coral-ink);
+    font-weight: 500;
     text-decoration: underline;
+    text-decoration-thickness: 2px;
     text-underline-offset: 3px;
   }
 
   .footer-linkedin:hover {
-    color: var(--accent);
+    background: var(--mustard);
+    color: var(--text);
   }
 
   a {
@@ -140,9 +257,9 @@ const { title, lang = 'no' } = Astro.props;
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 3px solid var(--coral-ink);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 3px;
   }
 
   .sr-only {
