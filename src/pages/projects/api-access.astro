@@ -27,20 +27,20 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         <h2>Background</h2>
         <p>
           This work is part of an internal tool for managing API access
-          for internal and external clients. It gives an overview of clients and their
-          assigned APIs, a changelog of changes per client, and a few other
-          administrative functions.
+          for internal and external clients. It gives an overview of clients and which APIs
+          they have access to, a changelog per client, and a few other
+          administrative functions. The feature specified in this project is the ability
+          to manage (remove and add) which APIs a client has access to.
         </p>
       </section>
 
       <section>
         <h2>The problem</h2>
         <p>
-          One of the features on this tool is the ability to manage which APIs a
-          client has access to. The existing interface for this used a dual-panel
+           The existing interface for this used a dual-panel
           "add/remove" pattern. While functional, it had several
           issues: raw UUIDs were visible to users, the list was unordered and
-          ungrouped, and — critically — granular access control was a separate
+          ungrouped, and most critically: granular access control was a separate
           two-step process. Users had to add an API, save, navigate back to the
           overview, find the entry they just added, and only then configure
           which specific endpoints to allow.
@@ -58,11 +58,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         <h2>Process</h2>
         <p>
           I started by talking to the people who used the system regularly to
-          understand where the friction actually was. One thing that came up: removing
+          understand where the friction actually was. One thing I noticed in particular: removing
           access was rare. The interface was built around adding and removing as
           equally common actions, but in practice bulk removal almost never happened.
           That changed how I thought about the solution. From there I sketched out
-          alternatives in Figma, focusing on collapsing the two-step add flow into one
+          alternatives in Figma, focusing on collapsing the two-step "add" flow into one
           and moving removal out of the main path entirely.
         </p>
       </section>
@@ -70,9 +70,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       <section>
         <h2>The solution</h2>
         <p>
-          Adding access got a dedicated modal with inline granular controls —
+          I moved adding access to a dedicated modal with inline granular controls, which meant
           no more saving and navigating back to configure endpoints. Removing was
-          moved to a three-dot menu on each individual access card, keeping it
+          moved to a three-dot menu on each individual access list item, keeping it
           accessible without cluttering the primary flow.
         </p>
         <figure>
@@ -81,6 +81,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
             alt="Wireframe of the new Add access popover with inline granular endpoint selection"
           />
         </figure>
+        <figcaption>Wireframe: Adding access in a modal flow</figcaption>
       </section>
 
       <section>
@@ -91,11 +92,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         </p>
         <blockquote>
           "Managing API access for clients has received a real lift and become
-          much easier — and prettier. Both adding and removing access. Really
+          much easier, and prettier. Both adding and removing access. Really
           great work."
         </blockquote>
         <p>
-          Worth noting: both adding <em>and</em> removing were called out as
+          The feedback mentions that <em>both</em> adding and removing were
           improved, even though removing was deliberately moved out of the main
           flow. That felt like a good signal that the restructuring had worked.
         </p>

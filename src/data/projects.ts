@@ -15,7 +15,7 @@ export const projects: Project[] = [
     slug: "music-by-humans",
     title: "Music by Humans",
     description:
-      "An app to filter out AI-generated musicians from your Spotify playlists.",
+      "An app to filter out AI-generated artists from your Spotify playlists.",
     tags: ["UX Design", "User Testing", "Frontend", "Side project"],
     year: 2026,
     caseStudy: true,
